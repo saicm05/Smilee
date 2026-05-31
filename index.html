@@ -1,0 +1,174 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Smile Day! 😊</title>
+    <style>
+        /* Cute & Vibrant Aesthetic */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ffe5ec 0%, #ffc2d1 100%);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(255, 123, 166, 0.2);
+            max-width: 450px;
+            width: 90%;
+            border: 3px solid #ffb3c6;
+            position: relative;
+        }
+
+        .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        h1 {
+            color: #ff477e;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            line-height: 1.4;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: 50px;
+            position: relative;
+        }
+
+        .btn {
+            padding: 12px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        #yesBtn {
+            background-color: #ff477e;
+            color: white;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        #yesBtn:hover {
+            background-color: #ff5c8a;
+            transform: scale(1.1);
+        }
+
+        #noBtn {
+            background-color: #f0f0f0;
+            color: #666;
+            position: absolute;
+            /* Match the initial layout positioning */
+            left: 55%; 
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            touch-action: none; /* Prevents mobile scrolling while trying to tap */
+        }
+
+        /* Success State Details */
+        .success-message {
+            display: none;
+        }
+
+        .success-message h2 {
+            color: #ff477e;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .success-message p {
+            color: #ff758f;
+            font-size: 1.1rem;
+        }
+
+        /* Animations */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="mainCard">
+        <!-- Interactive Prompt View -->
+        <div id="promptView">
+            <div class="icon">✨😊✨</div>
+            <h1>Today is National Smile Day,<br>Gugu!! Start smiling, will ya??</h1>
+            <div class="btn-container">
+                <button class="btn" id="yesBtn" onclick="celebrate()">Yes</button>
+                <button class="btn" id="noBtn">No</button>
+            </div>
+        </div>
+
+        <!-- Hidden Success View -->
+        <div id="successView" class="success-message">
+            <div class="icon">💖🎉🌈</div>
+            <h2>Wonderful!</h2>
+            <p>Your smile makes the world a brighter place. Keep shining!</p>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const promptView = document.getElementById('promptView');
+        const successView = document.getElementById('successView');
+
+        // Function to move the "No" button to a random spot within the window view
+        function evadeButton() {
+            // Get button dimensions to ensure it stays fully inside the screen
+            const btnWidth = noBtn.offsetWidth;
+            const btnHeight = noBtn.offsetHeight;
+
+            // Calculate safe boundary limits
+            const maxX = window.innerWidth - btnWidth - 20;
+            const maxY = window.innerHeight - btnHeight - 20;
+
+            // Generate random coordinates within boundaries
+            const randomX = Math.max(20, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(20, Math.floor(Math.random() * maxY));
+
+            // Force the button out of its container layout into viewport-wide absolute coordinates
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+        }
+
+        // Trigger evasion on mouse hover, touch screen tap, or click attempts
+        noBtn.addEventListener('mouseenter', evadeButton);
+        noBtn.addEventListener('mouseover', evadeButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevents simulated mouse clicks on mobile
+            evadeButton();
+        });
+
+        // Triggered when "Yes" is clicked
+        function celebrate() {
+            promptView.style.display = 'none';
+            successView.style.display = 'block';
+            
+            // Optional: Background color shift on victory
+            document.body.style.background = 'linear-gradient(135deg, #ffee93 0%, #ffc2d1 100%)';
+        }
+    </script>
+</body>
+</html>
